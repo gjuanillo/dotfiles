@@ -9,11 +9,11 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:FiraCode Nerd Font 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -29,21 +29,19 @@ exec --no-startup-id dex --autostart --environment i3
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xset s off         # Disable screen saver
+exec --no-startup-id xset -dpms         # Disable Display Power Management
+exec --no-startup-id xset s noblank     # Don't blank the screen
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
 # Configure Display to 1920x1080
-exec_always xrandr --output Virtual1 --mode 1920x1080
-# Hide window border
+exec_always xrandr --output HDMI-1 --mode 1920x1080
+# Hide Window Boarder
 for_window [class="^.*"] border pixel 0
-# Exec System Settings (Dark mode)
-exec --no-startup-id /usr/libexec/csd-xsettings
-# Exec Ulauncher on Startup
-exec --no-startup-id ulauncher
-# Enable Transparent Terminal
-exec --no-startup-id picom --config ~/.config/picom/picom.conf -b
+
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -64,20 +62,18 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Escape kill
 
-# start dmenu (a program launchera
-# bindsym $mod+d exec --no-startup-id dmenu_run
+# start dmenu (a program launcher)
+#bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
-bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
-# bindcode $mod+40 exec  ulauncher
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
-# bindsym $mod+semicolon focus right
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
@@ -167,13 +163,14 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# Logout, Reboot, and Shutdown
 mode "exit: [l]ogout, [r]eboot, [s]hutdown" {
 
   bindsym l exec i3-msg exit
 
   bindsym r exec systemctl reboot
 
-  bindsym s exec systemctl shutdown
+  bindsym s exec systemctl poweroff 
 
   bindsym Escape mode "default"
 
@@ -181,8 +178,7 @@ mode "exit: [l]ogout, [r]eboot, [s]hutdown" {
 
 }
 
-bindsym $mod+x mode "exit: [l]ogout, [r]eboot, [s]hutdown"
-
+bindsym $mod+Shift+Escape mode "exit: [l]ogout, [r]eboot, [s]hutdown"
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -213,11 +209,22 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        mode hide
+	mode hide
         status_command i3status
 }
-# Set background
-exec --no-startup-id feh --bg-max ~/Downloads/fsb5ls0njzq11.jpg
 
-# Show polybar on startup
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# Set background
+exec --no-startup-id feh --bg-max ~/Documents/Wallpapers/wallpaper.jpg
+
+# Enable Polybar
+exec --no-startup-id ~/.config/polybar/launch.sh
+
+# Enable Picom
+exec --no-startup-id picom --config ~/.config/picom/picom.conf
+
+# Add Gaps for windows
+gaps inner 5px
+gaps outer 10px
+
+# Swap Esc and Caps
+exec --no-startup-id setxkbmap -option caps:swapescape
