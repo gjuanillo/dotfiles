@@ -37,8 +37,9 @@ exec --no-startup-id xset s noblank     # Don't blank the screen
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-# Configure Display to 1920x1080
-exec_always xrandr --output HDMI-1 --mode 1920x1080
+# Configure Dual Screen Display
+exec --no-startup-id ~/.screenlayout/dual.sh
+
 # Hide Window Boarder
 for_window [class="^.*"] border pixel 0
 
@@ -187,10 +188,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -214,7 +215,7 @@ bar {
 }
 
 # Set background
-exec --no-startup-id feh --bg-max ~/Documents/Wallpapers/wallpaper.jpg
+exec --no-startup-id feh --bg-fill ~/Documents/Wallpapers/wallpaper6.jpg
 
 # Enable Polybar
 exec --no-startup-id ~/.config/polybar/launch.sh
