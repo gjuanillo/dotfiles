@@ -8,7 +8,8 @@ sleep 1
 
 # Launch your single bar called "example"
 echo "---" | tee -a /tmp/polybar.log
-polybar kanami 2>&1 | tee -a /tmp/polybar.log & disown
+polybar main 2>&1 | tee -a /tmp/polybar.log & disown
+polybar secondary 2>&1 | tee -a /tmp/polybar.log & disown
 
 echo "Polybar launched..."
 
