@@ -232,3 +232,6 @@ gaps outer 10px
 
 # Swap Esc and Caps
 exec --no-startup-id setxkbmap -option caps:swapescape
+
+# Enable IMEs for Japanese keyboard layout
+exec --no-startup-id fcitx5
