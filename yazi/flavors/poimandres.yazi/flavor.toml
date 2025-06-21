@@ -1,0 +1,58 @@
+[mgr]
+cwd = { fg = "#89DDFF" }
+hovered = { bg = "#1B1E28" }
+preview_hovered = { underline = true }
+
+find_keyword = { fg = "#5DE4C7", italic = true, underline = true }
+find_position = { fg = "#E4F0FB", italic = true }
+
+marker_copied = { fg = "#1B1E28", bg = "#5DE4C7" }
+marker_cut = { fg = "#1B1E28", bg = "#89DDFF" }
+marker_marked = { fg = "#1B1E28", bg = "#7A88CF" }
+marker_selected = { fg = "#1B1E28", bg = "#E4F0FB" }
+
+border_symbol = "│"
+border_style = { fg = "#1B1E28" }
+
+syntect_theme = "~/.config/yazi/themes/poimandres.tmTheme"
+
+# Status bar customization
+[status]
+overall = { fg = "#5DE4C7", bg = "#1B1E28" }
+sep_left = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+perm_read = { fg = "#7A88CF" }
+perm_write = { fg = "#5DE4C7" }
+perm_exec = { fg = "#89DDFF" }
+
+progress_label = { fg = "#E4F0FB", bold = true }
+progress_normal = { fg = "#5DE4C7" }
+progress_error = { fg = "#D67AD2" }
+
+# Mode colors
+[mode]
+normal_main = { fg = "#1B1E28", bg = "#89DDFF", bold = true }
+select_main = { fg = "#1B1E28", bg = "#5DE4C7", bold = true }
+unset_main = { fg = "#1B1E28", bg = "#7A88CF", bold = true }
+
+# Preview pane styling
+[preview]
+syntax = { fg = "#E4F0FB" }
+title = { fg = "#89DDFF", bold = true }
+label = { fg = "#5DE4C7", italic = true }
+value = { fg = "#E4F0FB" }
+spinner = { fg = "#89DDFF" }
+loading = { fg = "#7A88CF", italic = true }
+error = { fg = "#D67AD2", bold = true }
+border_style = { fg = "#1B1E28" }
+
+# File-type coloration
+[filetype]
+rules = [
+  { mime = "image/*", fg = "#5DE4C7" },
+  { mime = "video/*", fg = "#7A88CF" },
+  { mime = "audio/*", fg = "#7A88CF" },
+  { mime = "application/zip", fg = "#89DDFF" },
+  { name = "*", fg = "#E4F0FB" },
+  { name = "*/", fg = "#89DDFF" }
+]
