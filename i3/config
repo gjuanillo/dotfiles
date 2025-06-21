@@ -22,6 +22,9 @@ font pango:FiraCode Nerd Font 10
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xset s off         # Disable screen saverAdd commentMore actions
+exec --no-startup-id xset -dpms         # Disable Display Power Management
+exec --no-startup-id xset s noblank     # Don't blank the screen
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -58,7 +61,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec alacritty 
+bindsym $mod+Return exec kitty 
 
 # kill focused window
 bindsym $mod+Escape kill

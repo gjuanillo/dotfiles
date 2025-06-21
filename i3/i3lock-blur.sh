@@ -4,6 +4,8 @@
 IMAGE=/tmp/screen_locked.png
 BLURRED=/tmp/screen_locked_blur.png
 
+rm -f "$IMAGE" "$BLURRED"
+
 # Take a screenshot of the full desktop (both monitors)
 scrot "$IMAGE"
 
