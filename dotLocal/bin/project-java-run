@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Build the project
+echo " Building project..."
+mvn clean package > /dev/null 2>&1
+
+# Find the main App.java file
+APP_FILE=$(find src/main/java -name "App.java" | head -n 1)
+
+if [ -z "$APP_FILE" ]; then
+  echo "Could not find App.java. Please create a main class."
+  exit 1
+fi
+
+# Extract package name from App.java
+PACKAGE_LINE=$(grep -E '^package ' "$APP_FILE")
+PACKAGE_NAME=$(echo "$PACKAGE_LINE" | sed -E 's/package (.*);/\1/')
+
+if [ -z "$PACKAGE_NAME" ]; then
+  echo "No package declaration found. Assuming default package."
+  MAIN_CLASS="App"
+else
+  MAIN_CLASS="$PACKAGE_NAME.App"
+fi
+
+# Find the JAR
+JAR_FILE=$(find target -name "*-SNAPSHOT.jar" | head -n 1)
+
+if [ ! -f "$JAR_FILE" ]; then
+  echo "Compiled JAR not found. Make sure the build succeeded."
+  exit 1
+fi
+
+# Run the application
+echo "Running: java -cp $JAR_FILE $MAIN_CLASS"
+java -cp "$JAR_FILE" "$MAIN_CLASS"
