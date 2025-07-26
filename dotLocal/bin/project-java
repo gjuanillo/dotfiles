@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Prompt user for groupId and artifactId
+read -p "Enter groupId (e.g., com.example.dsa): " groupId
+read -p "Enter artifactId (e.g., dsa-java24): " artifactId
+
+# Create Maven project
+mvn archetype:generate \
+  -DgroupId="$groupId" \
+  -DartifactId="$artifactId" \
+  -DarchetypeArtifactId=maven-archetype-quickstart \
+  -DinteractiveMode=false
+
+# Insert Java 24 config into pom.xml
+pom_file="$artifactId/pom.xml"
+
+if [ -f "$pom_file" ]; then
+  # Replace the <properties> block
+  sed -i '/<properties>/,/<\/properties>/c\
+<properties>\n\
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n\
+    <maven.compiler.source>24</maven.compiler.source>\n\
+    <maven.compiler.target>24</maven.compiler.target>\n\
+</properties>' "$pom_file"
+
+  # Add compiler plugin if not present
+  if ! grep -q "maven-compiler-plugin" "$pom_file"; then
+    sed -i '/<\/project>/i\
+  <build>\n\
+    <plugins>\n\
+      <plugin>\n\
+        <artifactId>maven-compiler-plugin</artifactId>\n\
+        <version>3.11.0</version>\n\
+        <configuration>\n\
+          <release>24</release>\n\
+        </configuration>\n\
+      </plugin>\n\
+    </plugins>\n\
+  </build>' "$pom_file"
+  fi
+
+  echo "✅ Project '$artifactId' created and configured for Java 24!"
+else
+  echo "❌ Failed: $pom_file not found."
+fi
